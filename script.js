@@ -2,12 +2,14 @@
 
 let seed = 0;
 let seed_noise = 0;
-let circle_size = 0;
+
 
 var startX = 300;
 var startY = 300;	
 var angle = 0;	 
-var radius = 50;  
+var radius = 120;  
+var reflection_size = 15;
+var circle_size = reflection_size * 20;
 
 
 let color_background;
@@ -21,7 +23,8 @@ function setup() {
     seed++;
     flag_func_background = false;
     flag_circle = false;
-    console.log("rerolled");
+    reflection_size = random(10, 30);
+    circle_size = reflection_size * 20;
   });
 
 }
@@ -47,46 +50,84 @@ function draw() {
   //draw circle with mouse interaction
   if (flag_circle == false) {
     set_color_background();
+    draw_bubble();
     draw_eclipse();
    // flag_circle = true;
   }
+
+  function draw_bubble(){
+
+    noFill();
+    stroke(400);
+    ellipse(width/2, height/2, circle_size);
+    
+  }
   
   function draw_eclipse() {
-    for (let i = 0; i < 1; i++) {
-      let theta = random(0, TWO_PI);
-      //let h = randomGaussian(3.3);
-      seed_noise += 0.01;
-  
 
-      angle = 4 * PI * noise(seed_noise); //experiment with different means
+    let reflection_angle = atan2(mouseY - height / 2, mouseX - width / 2);
 
-      //var x = startX + radius * cos(angle);
-      //var y = startY + radius * sin(angle);
-
-
-      var x = mouseX + radius * cos(angle);
-      var y = mouseY + radius * sin(angle);
+      for (let i = 0; i < 100; i++) {
+      seed_noise += 0.5;
+      var x = startX + radius * reflection_size/15 * cos(reflection_angle + PI + noise(seed_noise));
+      var y = startY + radius * reflection_size/15 * sin(reflection_angle + PI + noise(seed_noise));
 
       //circle_size = mouseY/2;
-      noFill();
+      fill('#ffffff');
       stroke(255);
-      ellipse(x, y, 8);
+      ellipse(x, y, reflection_size);
     }
-    /*
-    noFill();
-    stroke(255);
-    strokeWeight(mouseX / 10);
-    ellipse(300, 300, mouseY, mouseY);
-
-    */
   }
 
-
-
-
-
-
 }
+
+
+
+/*
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(255);
+  noLoop();
+  
+  // draw leaf
+  
+  
+  //for(var i = 0 ; i <10 ; i ++){
+  //  
+  // x = randomGaussian(70, 20);
+  //  y = randomGaussian(350, 30);
+   
+  push();
+  x = 100;
+  y = 100;
+  stroke(0, 0, 0);
+  fill(0, 100, 0);
+
+  let angle1 = radians(45);
+
+  translate(x + 52, -20);
+  rotate(angle1);
+  
+
+  ellipse(x, y, 50, 100);
+  line(x, y - 25, x, y + 75);
+
+  pop();
+  stroke(0, 0, 0);
+  fill(0, 100, 0);
+  ellipse(x, y, 50, 100);
+  line(x, y - 25, x, y + 75);
+  
+    
+  //}
+}
+
+
+
 /*
 let seed = 12345;
 
