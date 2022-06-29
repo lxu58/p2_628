@@ -15,14 +15,16 @@ var circle_size = reflection_size * 20;
 let color_background;
 
 let flag_func_background = false;
-let flag_circle = false;
+let flag_func_leaves = false;
+let flag_reroll = false;
 
 function setup() {
   createCanvas(600, 600);
   createButton("reroll").mousePressed(() => {
     seed++;
     flag_func_background = false;
-    flag_circle = false;
+    flag_reroll = false;
+    flag_func_leaves = false;
     reflection_size = random(10, 30);
     circle_size = reflection_size * 20;
   });
@@ -43,16 +45,23 @@ function set_color_background() {
   background(color_background);
 }
 
+function draw_leaves(){
+  if(flag_func_leaves == false){
+
+  }
+}
+
 
 
 function draw() {
 
   //draw circle with mouse interaction
-  if (flag_circle == false) {
+  if (flag_reroll == false) {
     set_color_background();
     draw_bubble();
     draw_eclipse();
-   // flag_circle = true;
+    draw_leaves();
+   // flag_reroll = true;
   }
 
   function draw_bubble(){
@@ -84,47 +93,72 @@ function draw() {
 
 
 /*
-
-function setup() {
-  createCanvas(400, 400);
-}
-
-function draw() {
-  background(255);
-  noLoop();
-  
-  // draw leaf
-  
   
   //for(var i = 0 ; i <10 ; i ++){
   //  
-  // x = randomGaussian(70, 20);
-  //  y = randomGaussian(350, 30);
-   
+   x = randomGaussian(300, 300);
+   y = randomGaussian(500, 30);
+
+
+
+
+     draw_ALeaf(x, y);
+  // draw_threeLeaves (x, y);
+  
+  function draw_ALeaf(x, y){
+    let angle = random(0, 360);
   push();
-  x = 100;
-  y = 100;
+  translate(x, y);
+  rotate(radians(angle));
   stroke(0, 0, 0);
   fill(0, 100, 0);
-
-  let angle1 = radians(45);
-
-  translate(x + 52, -20);
-  rotate(angle1);
-  
-
-  ellipse(x, y, 50, 100);
-  line(x, y - 25, x, y + 75);
-
+  ellipse(0, 0, 50, 100);
+  line(0, 0 - 25, 0, 0 + 75);
   pop();
+    
+  }
+  
+   draw_threeLeaves (x, y);
+  
+  
+  
+  function draw_threeLeaves(x, y){
+  
+  
+  push();
+  translate(x, y);
+  rotate(radians(45));
   stroke(0, 0, 0);
   fill(0, 100, 0);
-  ellipse(x, y, 50, 100);
-  line(x, y - 25, x, y + 75);
+  ellipse(0, 0, 50, 100);
+  line(0, 0 - 25, 0, 0 + 75);
+  pop();
   
-    
-  //}
-}
+  push();
+  translate(x, y);
+  deltaX = 50;
+  deltaY = 25;
+  rotate(radians(0));
+  stroke(0, 0, 0);
+  fill(0, 100, 0);  
+  ellipse(0 - deltaX, 0 - deltaY, 50, 100);
+  line(0 - deltaX, 0 - 25 - deltaY, 0 - deltaX, 0 + 75 - deltaY);
+  pop();
+  
+  
+  push();
+  translate(x, y);
+  deltaX = 75;
+  deltaY = 70;
+  rotate(radians(-45));
+  stroke(0, 0, 0);
+  fill(0, 100, 0);  
+  ellipse(0 - deltaX, 0 - deltaY, 50, 100);
+  line(0 - deltaX, 0 - 25 - deltaY, 0 - deltaX, 0 + 75 - deltaY);
+  pop();
+
+  }
+
 
 
 
