@@ -94,6 +94,9 @@ function draw() {
 
 /*
   
+https://editor.p5js.org/mbardin/sketches/wVe_dpmLO
+
+
   //for(var i = 0 ; i <10 ; i ++){
   //  
    x = randomGaussian(300, 300);
