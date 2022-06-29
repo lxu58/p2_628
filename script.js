@@ -1,4 +1,93 @@
 /* exported setup, draw */
+
+let seed = 0;
+let seed_noise = 0;
+let circle_size = 0;
+
+var startX = 300;
+var startY = 300;	
+var angle = 0;	 
+var radius = 50;  
+
+
+let color_background;
+
+let flag_func_background = false;
+let flag_circle = false;
+
+function setup() {
+  createCanvas(600, 600);
+  createButton("reroll").mousePressed(() => {
+    seed++;
+    flag_func_background = false;
+    flag_circle = false;
+    console.log("rerolled");
+  });
+
+}
+
+function set_color_background() {
+
+  //color won't change unless click reroll
+  if (flag_func_background == false) {
+  const r = random(255);
+  const g = random(100, 200);
+  const b = random(100);
+  color_background = color(r, g, b);
+  flag_func_background = true;
+  }
+
+  background(color_background);
+}
+
+
+
+function draw() {
+
+  //draw circle with mouse interaction
+  if (flag_circle == false) {
+    set_color_background();
+    draw_eclipse();
+   // flag_circle = true;
+  }
+  
+  function draw_eclipse() {
+    for (let i = 0; i < 1; i++) {
+      let theta = random(0, TWO_PI);
+      //let h = randomGaussian(3.3);
+      seed_noise += 0.01;
+  
+
+      angle = 4 * PI * noise(seed_noise); //experiment with different means
+
+      //var x = startX + radius * cos(angle);
+      //var y = startY + radius * sin(angle);
+
+
+      var x = mouseX + radius * cos(angle);
+      var y = mouseY + radius * sin(angle);
+
+      //circle_size = mouseY/2;
+      noFill();
+      stroke(255);
+      ellipse(x, y, 8);
+    }
+    /*
+    noFill();
+    stroke(255);
+    strokeWeight(mouseX / 10);
+    ellipse(300, 300, mouseY, mouseY);
+
+    */
+  }
+
+
+
+
+
+
+}
+/*
 let seed = 12345;
 
 const grassColor = "#e1ac4a";
@@ -123,3 +212,4 @@ function draw() {
   }
 }
 
+*/
